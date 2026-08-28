@@ -1,12 +1,18 @@
 pipeline {
-    agent any
+    agent none
 
     stages {
-        stage('Hello') {
+        stage('Unit Tests Backend') {
+            agent {
+                docker {
+                    image 'golang:1.21'
+                    args '-e GOCACHE=/tmp/go-build -e GOMODCACHE=/tmp/go-mod'
+                }
+            }
             steps {
-                echo 'Hello World'
-                sh 'echo "Hello Jenkins"'
-                sh 'date'
+                dir('bugtracker-backend') {
+                    sh 'go test -v ./...'
+                }
             }
         }
     }
