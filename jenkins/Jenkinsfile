@@ -6,7 +6,8 @@ pipeline {
             agent {
                 docker {
                     image 'golang:1.21'
-                    args '-e GOCACHE=/tmp/go-build -e GOMODCACHE=/tmp/go-mod'
+                    args '-e GOCACHE=/tmp/go-build'
+                   
                 }
             }
             steps {
